@@ -35,6 +35,8 @@ You can simply turn these on and off by setting them to true or false using the 
 ```
 pm2 set pm2-slack:log true
 pm2 set pm2-slack:error false
+pm2 set pm2-slack:token_line tHicFbXJpTtdN17jDWJapr68pbYhg550LplVsqLrVvr
+
 ```
 
 ## Options
@@ -81,6 +83,8 @@ Same buffer options will be used for all processed.
 
 ```
 # Define global options for all processes.
+
+
 pm2 set pm2-slack:buffer_seconds 5
 
 # Define global options for all processes.

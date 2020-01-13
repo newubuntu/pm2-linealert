@@ -2,7 +2,7 @@
 
 // Dependency
 const Scheduler = require('./scheduler');
-const slackSender = require('./slack-sender');
+const whosender = require('./sender');
 
 /**
  * 
@@ -12,6 +12,7 @@ const slackSender = require('./slack-sender');
  * @param {number} config.buffer_max_seconds
  * @param {number} config.queue_max
  * @param {number} config.slack_url
+ * @param {number} config.token_line
  * @constructor
  */
 function MessageQueue(config) {
@@ -32,7 +33,7 @@ MessageQueue.prototype.addMessageToQueue = function(message) {
     
     if (!this.config.buffer || !(this.config.buffer_seconds > 0)) {
         // No sending buffer defined. Send directly to Slack.
-        slackSender.sendToSlack([message], self.config);
+        self.SendAlert([message]);
     } else {
         // Add message to buffer
         this.messageQueue.push(message);
@@ -41,9 +42,20 @@ MessageQueue.prototype.addMessageToQueue = function(message) {
             // Remove waiting messages from global queue
             const messagesToSend = self.messageQueue.splice(0, self.messageQueue.length);
             
-            slackSender.sendToSlack(messagesToSend, self.config);
+            self.SendAlert(messagesToSend);
         });
     }
+    
+}
+
+MessageQueue.prototype.SendAlert = function(message) {
+    const self = this;
+     if (!this.config.slack_url!=null) {
+	   whosender.sendToSlack(message, self.config);
+	 }
+	  if (!this.config.token_line!=null) {
+	   whosender.SendToline(message, self.config);
+	 }
     
 }
 

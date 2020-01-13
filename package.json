@@ -1,14 +1,14 @@
 {
-  "name": "pm2-slack",
-  "version": "1.1.0",
-  "description": "A PM2 module to emit events to Slack",
+  "name": "pm2-linealert",
+  "version": "1.1.1",
+  "description": "A PM2 module to emit events to Slack and line notification",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattpker/pm2-slack"
+    "url": "https://github.com/newubuntu/pm2-linealert"
   },
   "keywords": [
     "pm2",
@@ -16,18 +16,19 @@
   ],
   "author": "Matt Atkinson <mattpker@gmail.com> (https://github.com/mattpker)",
   "contributors": [
-    "Martin Zaloudek (https://github.com/ma-zal)"
+    "Martin Zaloudek (https://github.com/ma-zal)",
+    "newubuntu (https://github.com/newubuntu)"
   ],
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/mattpker/pm2-slack/blob/master/LICENSE"
+      "url": "https://github.com/mattpker/pm2-linealert/blob/master/LICENSE"
     }
   ],
   "bugs": {
-    "url": "https://github.com/mattpker/pm2-slack/issues"
+    "url": "https://github.com/newubuntu/pm2-linealert/issues"
   },
-  "homepage": "https://github.com/mattpker/pm2-slack",
+  "homepage": "https://github.com/newubuntu/pm2-linealert",
   "dependencies": {
     "pm2": "^0.15.10",
     "pmx": "^0.5.5",
@@ -39,17 +40,18 @@
     "error": true,
     "kill": true,
     "exception": true,
-    "restart": false,
-    "reload": false,
-    "delete": false,
-    "stop": false,
+    "restart": true,
+    "reload": true,
+    "delete": true,
+    "stop": true,
     "restart overlimit": true,
-    "exit": false,
-    "start": false,
-    "online": false,
-    "buffer": true,
+    "exit": true,
+    "start": true,
+    "online": true,
+    "buffer": false,
     "buffer_seconds": 2,
     "queue_max": 100,
-    "buffer_max_seconds": 20
+    "buffer_max_seconds": 20,
+    "token_line": null
   }
 }

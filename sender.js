@@ -2,7 +2,7 @@
 
 
 // Exports
-module.exports = { sendToSlack };
+module.exports = { sendToSlack,SendToline };
 
 
 // Dependency
@@ -15,6 +15,50 @@ const os = require('os');
 const redEvents = ['stop', 'exit', 'delete', 'error', 'kill', 'exception', 'restart overlimit', 'suppressed'];
 const redColor = '#F44336';
 const commonColor = '#2196F3';
+//images
+const img_severdown='https://2.bp.blogspot.com/-JrRtVMfHpmg/W2qRtmauwxI/AAAAAAAAUws/fKYovPLxT1kOV39QoNlnBVsuZjMvmaZawCLcBGAs/s1600/a2J8naDxh85dd0Q_Np3-lcKf4Ab4QHV0tRExtw8Z8pQ.jpg';
+const img_servererror='https://cottagelife.com/wp-content/uploads/2020/01/shutterstock_1379612366.jpg'
+const img_restart='https://sudsapda.com/app/uploads/2019/02/559000006481203-e1549861249641.jpeg';
+const img_error='https://f.ptcdn.info/723/061/000/pkltx5avwSxPyzfJVDT-o.jpg';
+const img_exception='https://scontent-fbkk5-7.us-fbcdn.net/v1/t.1-48/1426l78O9684I4108ZPH0J4S8_842023153_K1DlXQOI5DHP/dskvvc.qpjhg.xmwo/w/data/1119/1119043-img.tfe4qw.27i1c.jpg';
+const img_start='http://www.asianjunkie.com/wp-content/uploads/2017/02/JisooPaperEater.jpg';
+const img_stop='https://f.ptcdn.info/723/061/000/pkltx5avwSxPyzfJVDT-o.jpg';
+const img_online='https://i.imgur.com/ZA4kf6Z.jpg';
+
+const dataimg={
+	  "error":img_servererror,
+      "kill":img_severdown,
+      "exception":img_exception,
+	  "start":img_start,
+	  "stop":img_stop,
+	  "restart":img_restart,
+      "online":img_online,
+}; 
+
+function SendToline(messages, config) {    
+  let onedata=messages[0];
+  let mesg="\n"+'name: '+onedata.name+"\n"+'event: '+onedata.event+"\n"+'description: '+onedata.description+"\n"+'timestamp: '+onedata.timestamp;
+  let payload = {'message':mesg}
+  if(dataimg[onedata.event]){payload={...payload,'imageThumbnail':dataimg[onedata.event],'imageFullsize':dataimg[onedata.event]};}
+
+   request({
+    method: 'POST',
+    uri: 'https://notify-api.line.me/api/notify',
+    header: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    auth: {
+      bearer:config.token_line, //token
+    },
+    form:payload
+   }, (err, httpResponse, body) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(body)
+    }
+  }); 
+} 
 
 
 /**
@@ -23,8 +67,7 @@ const commonColor = '#2196F3';
  * @param {Message[]) messages - List of messages, ready to send.
  *                              This list can be trimmed and concated base on module configuration.
  */
-function sendToSlack(messages, config) {
-
+function sendToSlack(messages, config) { 
     // If a Slack URL is not set, we do not want to continue and nofify the user that it needs to be set
     if (!config.slack_url) {
         return console.error("There is no Slack URL set, please set the Slack URL: 'pm2 set pm2-slack:slack_url https://slack_url'");

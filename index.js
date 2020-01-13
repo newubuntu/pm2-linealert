@@ -36,7 +36,7 @@ function parseIncommingLog(logMessage) {
         //       The `parsedDescription[2]` are ".microseconds"
         if (parsedDescription && parsedDescription.length >= 2) {
             // Use timestamp from message
-            timestamp = Math.floor(Date.parse(parsedDescription[1]) / 1000);
+            //timestamp =  Math.floor(Date.parse(parsedDescription[1]) / 1000);
             // Use message without date
             description = logMessage.replace(parsedDescription[0], "");
         } else {
@@ -47,7 +47,7 @@ function parseIncommingLog(logMessage) {
 
     return {
         description: description,
-        timestamp: timestamp
+        timestamp: new Date().toLocaleString()
     }
 }
 
@@ -69,28 +69,38 @@ const slackUrlRouter = {
     addMessage: function(message) {
         const processName = message.name;
         const slackUrl = moduleConfig['slack_url-' + processName] || moduleConfig['slack_url'];
+		const token_line = moduleConfig['token_line-' + processName] || moduleConfig['token_line'];
+		    if (slackUrl==null&&token_line==null) {return;}
+            if (slackUrl==null) { 
+				if (!this.messageQueues[slackUrl]) {
+					// Init new messageQueue to different Slack URL. 
+					// Resolve configuration parameters.
+					const configProperties = ['username', 'servername', 'buffer', 'slack_url','token_line', 'buffer_seconds', 'buffer_max_seconds', 'queue_max'];
+					const config = {};
+					configProperties.map((configPropertyName) => {
+						// Use process based custom configuration values if exist, else use the global configuration values.
+						config[configPropertyName] = moduleConfig[configPropertyName + '-' + processName] || moduleConfig[configPropertyName];
+					});
 
-        if (!slackUrl) {
-            return;
-            // No Slack URL defined for this process and no global Slack URL exists.
-        }
+					this.messageQueues[slackUrl] = new MessageQueue(config);
+				} 
+				this.messageQueues[slackUrl].addMessageToQueue(message);
+              }else if(token_line==null){
+				if (!this.messageQueues[slackUrl]) {
+					// Init new messageQueue to different Slack URL. 
+					// Resolve configuration parameters.
+					const configProperties = ['username', 'servername', 'buffer', 'slack_url','token_line', 'buffer_seconds', 'buffer_max_seconds', 'queue_max'];
+					const config = {};
+					configProperties.map((configPropertyName) => {
+						// Use process based custom configuration values if exist, else use the global configuration values.
+						config[configPropertyName] = moduleConfig[configPropertyName + '-' + processName] || moduleConfig[configPropertyName];
+					});
 
-        if (!this.messageQueues[slackUrl]) {
-            // Init new messageQueue to different Slack URL.
-
-            // Resolve configuration parameters.
-            const configProperties = ['username', 'servername', 'buffer', 'slack_url', 'buffer_seconds', 'buffer_max_seconds', 'queue_max'];
-            const config = {};
-            configProperties.map((configPropertyName) => {
-                // Use process based custom configuration values if exist, else use the global configuration values.
-                config[configPropertyName] = moduleConfig[configPropertyName + '-' + processName] || moduleConfig[configPropertyName];
-            });
-
-            this.messageQueues[slackUrl] = new MessageQueue(config);
-        }
-
-        this.messageQueues[slackUrl].addMessageToQueue(message);
-
+					this.messageQueues[token_line] = new MessageQueue(config);
+				} 
+				this.messageQueues[token_line].addMessageToQueue(message);
+		     }else{return;} 
+ 
     }
 };
 
@@ -149,7 +159,7 @@ pm2.launchBus(function(err, bus) {
                 name: 'PM2',
                 event: 'kill',
                 description: data.msg,
-                timestamp: Math.floor(Date.now() / 1000),
+                timestamp: new Date().toLocaleString(),
             });
         });
     }
@@ -165,7 +175,7 @@ pm2.launchBus(function(err, bus) {
                 name: parseProcessName(data.process),
                 event: 'exception',
                 description: description,
-                timestamp: Math.floor(Date.now() / 1000),
+                timestamp: new Date().toLocaleString(),
             });
         });
     }
@@ -192,7 +202,7 @@ pm2.launchBus(function(err, bus) {
             name: parseProcessName(data.process),
             event: data.event,
             description: description,
-            timestamp: Math.floor(Date.now() / 1000),
+            timestamp: new Date().toLocaleString(),
         });
     });
 });
