@@ -70,7 +70,7 @@ function SendToline(messages, config) {
 function sendToSlack(messages, config) { 
     // If a Slack URL is not set, we do not want to continue and nofify the user that it needs to be set
     if (!config.slack_url) {
-        return console.error("There is no Slack URL set, please set the Slack URL: 'pm2 set pm2-slack:slack_url https://slack_url'");
+        return console.error("There is no Slack URL set, please set the Slack URL: 'pm2 set pm2-linealert:slack_url https://slack_url'");
     }
 
     let limitedCountOfMessages;
