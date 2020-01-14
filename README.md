@@ -35,7 +35,7 @@ You can simply turn these on and off by setting them to true or false using the 
 
 ```
 1.git clone repo
-2.run start_agent.bat ËÃ×Í  pm2 install . áÅÑÇ  pm2 set µÑÇá»Å·Ñé§ËÁ´´Ñ§¹Õé
+2.run start_agent.bat à¸«à¸£à¸·à¸­  pm2 install . à¹à¸¥à¸±à¸§  pm2 set à¸•à¸±à¸§à¹à¸›à¸¥à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”à¸”à¸±à¸‡à¸™à¸µà¹‰
 
 pm2 set pm2-linealert:log false
 pm2 set pm2-linealert:error true
