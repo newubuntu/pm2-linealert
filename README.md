@@ -54,7 +54,7 @@ pm2 set pm2-linealert:token_line token_xxx
 ```
 
 ## Options
-## server_targets "ip1,ip2,ip3"
+
 The following options are available:
 
 - `slack_url` (string) - Slack Incomming Webhook URL.
@@ -65,7 +65,12 @@ The following options are available:
 - `queue_max` (int) - Maximum number of messages, that can be send in one Slack message (in one bufferring round). When the queue exceeds this maximum, next messages are suppresesed and replaced with message "*Next XX messages have been suppressed.*". Default: 100
 
 Set these options in the same way as subscribing to events.
-
+ 
+how to set line 
+pm2 set pm2-linealert:token_line token_xxx
+how to  set ping server 
+pm2 set pm2-linealert:server_targets ""
+Example server_targets "ip1,ip2,ip3"
 
 ###### Example
 
