@@ -8,6 +8,11 @@ and ping server by ip .
 To install and setup pm2-linealert, run the following commands:
 
 ```
+if windows 
+npm install --global windows-build-tools
+npm install -g node-gyp
+
+next step 
 pm2 install pm2-linealert
 pm2 set pm2-linealert:slack_url https://slack_url
 ```
