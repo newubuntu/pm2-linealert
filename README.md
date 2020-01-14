@@ -65,13 +65,13 @@ The following options are available:
 - `queue_max` (int) - Maximum number of messages, that can be send in one Slack message (in one bufferring round). When the queue exceeds this maximum, next messages are suppresesed and replaced with message "*Next XX messages have been suppressed.*". Default: 100
 
 Set these options in the same way as subscribing to events.
- 
+ ```
 how to set line 
 pm2 set pm2-linealert:token_line token_xxx
 how to  set ping server 
 pm2 set pm2-linealert:server_targets ""
 Example server_targets "ip1,ip2,ip3"
-
+```
 ###### Example
 
 The following configuration options will enable message buffering, and set the buffer duration to 5 seconds. All messages that occur within maximum 5 seconds delay between two neighboring messages will be concatenated into a single slack message.
