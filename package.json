@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/newubuntu/pm2-slack",
   "dependencies": {
+    "net-ping": "^1.2.3",
     "pm2": "^0.15.10",
     "pmx": "^0.5.5",
     "request": "^2.67.0"
@@ -52,6 +53,7 @@
     "buffer_seconds": 2,
     "queue_max": 100,
     "buffer_max_seconds": 20,
-    "token_line": null
+    "token_line": null,
+    "server_targets": []
   }
 }

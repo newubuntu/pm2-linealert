@@ -1,6 +1,7 @@
 # pm2-linealert
 
-This is a PM2 Module for sending events & logs from your PM2 processes to Slack and line notification. 
+This is a PM2 Module for sending events & logs from your PM2 processes to Slack and line notification
+and ping server by ip . 
 
 ## Install
  
@@ -34,7 +35,7 @@ You can simply turn these on and off by setting them to true or false using the 
 
 ```
 1.git clone repo
-2.pm2 installl .
+2.run start_agent.bat หรือ  pm2 install . แลัว  pm2 set ตัวแปลทั้งหมดดังนี้
 
 pm2 set pm2-linealert:log false
 pm2 set pm2-linealert:error true
@@ -45,12 +46,15 @@ pm2 set pm2-linealert:online true
 pm2 set pm2-linealert:stop true
 pm2 set pm2-linealert:delete true
 pm2 set pm2-linealert:restart overlimit true 
-pm2 set pm2-linealert:token_line tHicFbXJpTtdN17jDWJapr68pbYhg550LplVsqLrVvr
+pm2 set pm2-linealert:exit true 
+pm2 set pm2-linealert:buffer false
+pm2 set pm2-linealert:server_targets ""
+pm2 set pm2-linealert:token_line token_xxx
 
 ```
 
 ## Options
-
+## server_targets "ip1,ip2,ip3"
 The following options are available:
 
 - `slack_url` (string) - Slack Incomming Webhook URL.

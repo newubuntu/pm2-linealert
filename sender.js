@@ -24,6 +24,7 @@ const img_exception='https://scontent-fbkk5-7.us-fbcdn.net/v1/t.1-48/1426l78O968
 const img_start='http://www.asianjunkie.com/wp-content/uploads/2017/02/JisooPaperEater.jpg';
 const img_stop='https://f.ptcdn.info/723/061/000/pkltx5avwSxPyzfJVDT-o.jpg';
 const img_online='https://i.imgur.com/ZA4kf6Z.jpg';
+const img_serverdown='https://pbs.twimg.com/profile_images/1207375949290848256/ElYKYqlR.jpg';
 
 const dataimg={
 	  "error":img_servererror,
@@ -33,6 +34,7 @@ const dataimg={
 	  "stop":img_stop,
 	  "restart":img_restart,
       "online":img_online,
+      "serverdown":img_serverdown
 }; 
 
 function SendToline(messages, config) {    
@@ -40,7 +42,9 @@ function SendToline(messages, config) {
   let mesg="\n"+'name: '+onedata.name+"\n"+'event: '+onedata.event+"\n"+'description: '+onedata.description+"\n"+'timestamp: '+onedata.timestamp;
   let payload = {'message':mesg}
   if(dataimg[onedata.event]){payload={...payload,'imageThumbnail':dataimg[onedata.event],'imageFullsize':dataimg[onedata.event]};}
-
+    if (!config.token_line) {
+        return console.error("There is no Slack URL set, please set the line token pm2 set pm2-linealert:token_line token_xxx ");
+    }
    request({
     method: 'POST',
     uri: 'https://notify-api.line.me/api/notify',

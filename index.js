@@ -4,6 +4,8 @@
 const pm2 = require('pm2');
 const pmx = require('pmx');
 const MessageQueue = require('./message-queue');
+const pollsever = require ("./pollsever");
+const meventbus = require ("./meventbus"); 
 
 
 /**
@@ -118,6 +120,24 @@ function parseProcessName(process) {
 
 
 // ----- APP INITIALIZATION -----
+// ping server 
+let server_targets =moduleConfig['server_targets'];
+if(typeof server_targets=='string'&&server_targets.length>2){
+   server_targets=server_targets.split(",");
+ }else{
+  server_targets=[];
+}
+console.log('server_targets',server_targets);
+ 
+setTimeout(()=>pollsever.start(server_targets),20*1000);
+meventbus.on("pollevent", function(data) {
+slackUrlRouter.addMessage({
+	name: 'Tracking Server!',
+	event: 'serverdown',
+	description: data,
+	timestamp: new Date().toLocaleString(),
+}); 
+}); 
 
 // Start listening on the PM2 BUS
 pm2.launchBus(function(err, bus) {
