@@ -3,9 +3,9 @@
 // Dependency
 const pm2 = require('pm2');
 const pmx = require('pmx');
-const MessageQueue = require('./message-queue');
-const pollsever = require ("./pollsever");
-const meventbus = require ("./meventbus"); 
+const MessageQueue = require('./lib/message-queue');
+const pollsever = require ("./lib/pollsever");
+const meventbus = require ("./lib/meventbus"); 
 
 
 /**

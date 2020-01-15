@@ -9,14 +9,54 @@ To install and setup pm2-linealert, run the following commands:
 
 ```
 if windows 
-npm install --global windows-build-tools
-npm install -g node-gyp
+1. npm install --global windows-build-tools
+2. npm install -g node-gyp
 
 next step 
-pm2 install pm2-linealert
-pm2 set pm2-linealert:slack_url https://slack_url
-```
+3. pm2 install pm2-linealert 
+4. set variable env for pm2
+5.set for app natification
 
+OR
+ 
+if windows 
+1. npm install --global windows-build-tools
+2. npm install -g node-gyp
+3. git clone repo
+4. run start_agent.bat หรือ  pm2 install . 
+5.set variable env for pm2
+6. set for app natification
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+set variable env for pm2 in command line
+
+pm2 set pm2-linealert:log false
+pm2 set pm2-linealert:error true
+pm2 set pm2-linealert:restart true
+pm2 set pm2-linealert:exception true
+pm2 set pm2-linealert:start true
+pm2 set pm2-linealert:online true
+pm2 set pm2-linealert:stop true
+pm2 set pm2-linealert:delete true
+pm2 set pm2-linealert:restart overlimit true 
+pm2 set pm2-linealert:exit true 
+pm2 set pm2-linealert:buffer false
+pm2 set pm2-linealert:server_targets ""
+pm2 set pm2-linealert:token_line token_xxx
+
+and set for app natification  in command line
+how to set slack 
+pm2 set pm2-linealert:slack_url https://slack_url
+
+how to set line  in command line
+pm2 set pm2-linealert:token_line token_xxx
+
+how to  set ping server  in command line
+pm2 set pm2-linealert:server_targets ""
+Example server_targets "ip1,ip2,ip3"
+
+
+```
+ 
 To get the Slack URL, you need to setup an Incoming Webhook. More details on how to set this up can be found here: https://api.slack.com/incoming-webhooks
 
 ## Events subscription configuration
@@ -36,27 +76,7 @@ The following events can be subscribed to:
 - `start` -  Event fired when a process is started. Default: false
 - `online` - Event fired when a process is online. Default: false
 
-You can simply turn these on and off by setting them to true or false using the PM2 set command.
 
-```
-1.git clone repo
-2.run start_agent.bat หรือ  pm2 install . แลัว  pm2 set ตัวแปลทั้งหมดดังนี้
-
-pm2 set pm2-linealert:log false
-pm2 set pm2-linealert:error true
-pm2 set pm2-linealert:restart true
-pm2 set pm2-linealert:exception true
-pm2 set pm2-linealert:start true
-pm2 set pm2-linealert:online true
-pm2 set pm2-linealert:stop true
-pm2 set pm2-linealert:delete true
-pm2 set pm2-linealert:restart overlimit true 
-pm2 set pm2-linealert:exit true 
-pm2 set pm2-linealert:buffer false
-pm2 set pm2-linealert:server_targets ""
-pm2 set pm2-linealert:token_line token_xxx
-
-```
 
 ## Options
 
@@ -70,13 +90,7 @@ The following options are available:
 - `queue_max` (int) - Maximum number of messages, that can be send in one Slack message (in one bufferring round). When the queue exceeds this maximum, next messages are suppresesed and replaced with message "*Next XX messages have been suppressed.*". Default: 100
 
 Set these options in the same way as subscribing to events.
- ```
-how to set line 
-pm2 set pm2-linealert:token_line token_xxx
-how to  set ping server 
-pm2 set pm2-linealert:server_targets ""
-Example server_targets "ip1,ip2,ip3"
-```
+ 
 ###### Example
 
 The following configuration options will enable message buffering, and set the buffer duration to 5 seconds. All messages that occur within maximum 5 seconds delay between two neighboring messages will be concatenated into a single slack message.
