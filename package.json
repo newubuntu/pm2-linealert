@@ -1,6 +1,6 @@
 {
   "name": "pm2-linealert",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A PM2 module to emit events to Slack and line notification",
   "main": "index.js",
   "scripts": {
