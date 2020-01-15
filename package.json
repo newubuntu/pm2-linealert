@@ -12,7 +12,9 @@
   },
   "keywords": [
     "pm2",
-    "slack"
+    "slack",
+    "line",
+    "line notify"
   ],
   "author": "Matt Atkinson <mattpker@gmail.com> (https://github.com/mattpker)",
   "contributors": [
