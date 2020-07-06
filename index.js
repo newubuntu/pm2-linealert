@@ -4,7 +4,7 @@
 const pm2 = require('pm2');
 const pmx = require('pmx');
 const MessageQueue = require('./lib/message-queue');
-const pollsever = require ("./lib/pollsever");
+//const pollsever = require ("./lib/pollsever");
 const meventbus = require ("./lib/meventbus"); 
 
 
@@ -129,7 +129,7 @@ if(typeof server_targets=='string'&&server_targets.length>2){
 }
 console.log('server_targets',server_targets);
  
-setTimeout(()=>pollsever.start(server_targets),20*1000);
+//setTimeout(()=>pollsever.start(server_targets),20*1000);
 meventbus.on("pollevent", function(data) {
 slackUrlRouter.addMessage({
 	name: 'Tracking Server!',

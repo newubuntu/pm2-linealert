@@ -31,8 +31,7 @@
     "url": "https://github.com/newubuntu/pm2-linealert/issues"
   },
   "homepage": "https://github.com/newubuntu/pm2-linealert",
-  "dependencies": {
-    "net-ping": "^1.2.3",
+  "dependencies": { 
     "pm2": "^0.15.10",
     "pmx": "^0.5.5",
     "request": "^2.67.0"
